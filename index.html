@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>Canvas Playground</title>
+		<meta charset="utf8">
+
+		<style>
+			.canvas {
+				border: solid 1px black;
+			}
+		</style>
+	</head>
+<body>
+
+	<canvas id="canvas" class="canvas" height="150" width="150"></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+
+		ctx.fillStyle = 'rgb(200, 0, 0)';
+		ctx.fillRect(10, 10, 50, 50);
+	</script>
+</body>
+</html>
