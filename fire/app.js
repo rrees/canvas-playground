@@ -20,6 +20,24 @@ fireMap.fill(0, fireMap.length - fireGridSize);
 
 const fireGridCanvas = document.getElementById('fire-grid');
 
+function calculateFireGrid(fireMap) {
+	for (let row = fireGridSize - 1;
+		row > 0;
+		row--) {
+		for (let i = fireMap.length - ((row + 1) * fireGridSize);
+			i < (fireMap.length - (row * fireGridSize));
+			i++) {
+			if(fireMap[i] == 1) {
+				fireMap[i] = 2;
+			} else {
+				fireMap[i] = 1;
+			}
+		}
+	}
+
+	return fireMap;
+}
+
 function drawFireGrid() {
 	const ctx = fireGridCanvas.getContext('2d');
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -27,8 +45,10 @@ function drawFireGrid() {
 	let x = 0;
 	let y = 0;
 
+	calculateFireGrid(fireMap);
+
 	fireMap.forEach((heatValue, idx) => {
-		console.log(heatValue, idx);
+		//console.log(heatValue, idx);
 		ctx.fillStyle = heatLevels[heatValue];
 		const x = (idx % fireGridSize) * firePixelSize;
 		const y = Math.floor(idx / fireGridSize) * firePixelSize;
@@ -38,8 +58,8 @@ function drawFireGrid() {
 }
 
 function drawFire(pulse) {
-	console.log('Draw fire triggered');
-	console.log('Pulse', pulse);
+	//console.log('Draw fire triggered');
+	//console.log('Pulse', pulse);
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.save();
@@ -60,6 +80,8 @@ function tick() {
 		if(pulse >= heatLevels.length) {
 			pulse = 0;
 		}
+
+		drawFireGrid();
 	}
 
 	window.requestAnimationFrame(tick);
